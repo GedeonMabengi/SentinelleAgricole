@@ -1,0 +1,91 @@
+Crée une application complète de Smart Agriculture dans ce meme dossier avec les fonctionnalités suivantes :
+
+## 📱 FONCTIONNALITÉS PRINCIPALES
+
+### 1. Prédiction des Récoltes (ML)
+- Prédiction du rendement des cultures basée sur :
+  - Paramètres obligatoires : type de culture, superficie, région
+  - Paramètres optionnels : pluviométrie, type de sol (argileux/sableux/limoneux), utilisation d'engrais (OUI/NON + type), température moyenne, humidité
+- API Python (Flask/FastAPI) avec modèle ML entraîné (Random Forest/XGBoost)
+- Endpoint REST `/api/predict/yield` acceptant JSON avec les paramètres ci-dessus
+
+### 2. Détection des Maladies des Plantes (Deep Learning)
+- Upload d'image de feuille (mobile + web)
+- Classification CNN (MobileNetV3 ou MobileViT) pour identifier 15+ maladies communes
+- API Python avec endpoint `/api/detect/disease`
+- Retour : nom de la maladie, confiance (%), recommandations de traitement
+
+### 3. Assistant IA (LLM)
+- Chatbot intégré pour conseils agricoles
+- Utilisation d'un modèle léger (LLaMA 3.2 ou API Gemini/Claude)
+- Historique des conversations par utilisateur
+
+## 🏗️ ARCHITECTURE TECHNIQUE
+
+### Backend (Laravel (Latest))
+- API RESTful authentifiée (Sanctum)
+- Gestion des utilisateurs (fermiers, agronomes, admin)
+- Base de données : cultures, maladies, prédictions historiques, conversations
+- Files d'attente pour traitement ML asynchrone
+- Cache Redis pour résultats de prédiction fréquents
+
+### Frontend Web (React (Latest) + Vite)
+- Dashboard avec graphiques des prédictions (Recharts)
+- Interface drag-drop pour upload d'images
+- Chatbot flottant
+- Responsive (Tailwind CSS)
+- Carte interactive pour sélection des parcelles (Leaflet)
+
+### Application Mobile (Flutter)
+- Scanner de feuilles avec caméra intégrée
+- Mode offline avec synchronisation
+- Notifications push pour alertes maladies
+- Design Material You
+- Partage des résultats (PDF/image)
+
+### Service ML (Python)
+- FastAPI pour endpoints ML
+- Modèles sérialisés (joblib/pickle)
+- Prétraitement des images (resize 256x256, normalization)
+- Intégration optionnelle avec TensorFlow Lite pour mobile
+
+## 📊 STRUCTURE DE LA BASE DE DONNÉES (Laravel Migrations)
+
+Tables nécessaires :
+- users (rôles: farmer, agronomist, admin)
+- crops (nom, type, cycle de croissance)
+- plots (parcelles: superficie, localisation GPS, type_sol, user_id)
+- predictions (résultats ML: rendement_prédit, confiance, paramètres utilisés)
+- disease_detections (image_path, maladie_détectée, confiance, recommandations)
+- weather_data (historique pluviométrie/température par région)
+- conversations (historique chatbot)
+
+## 🔗 INTÉGRATIONS
+
+- API météo externe (OpenWeatherMap) pour données en temps réel
+- Stockage cloud AWS S3 / Cloudinary pour images
+- Firebase pour notifications push (Flutter)
+
+## 📁 STRUCTURE DES PROJETS
+
+Donne-moi :
+1. Architecture complète avec diagramme Mermaid
+2. Migrations Laravel détaillées
+3. Modèles Eloquent avec relations
+4. Contrôleurs API (Resource Controllers)
+5. Routes API protégées
+6. Code React (components, hooks, services API)
+7. Code Flutter (screens, providers, services)
+8. Code Python ML (FastAPI, modèles, preprocessing)
+9. Docker Compose pour orchestration complète
+10. README avec instructions d'installation étape par étape
+
+## ⚡ CONTRAINTES
+
+- Code production-ready avec gestion d'erreurs
+- Validation des données côté backend (Form Requests)
+- Rate limiting sur API ML
+- Tests unitaires basiques
+- Documentation API (OpenAPI/Swagger)
+
+Commence par l'architecture globale et les migrations Laravel, puis avance section par section.
