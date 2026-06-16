@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import PublicLayout from '@/layouts/PublicLayouts';
 
 const features = [
@@ -39,6 +39,9 @@ const steps = [
 ];
 
 export default function Welcome() {
+  const { auth } = usePage().props as { auth?: { user?: { name: string } } };
+  const isLoggedIn = !!auth?.user;
+
   return (
     <PublicLayout title="Accueil">
     <div className="min-h-screen bg-white font-sans antialiased">
@@ -49,18 +52,29 @@ export default function Welcome() {
             🌾 Sentinelle Agricole
           </div>
           <div className="space-x-4">
-            <Link
-              href={route('login')}
-              className="text-gray-700 hover:text-green-700 font-medium transition-colors"
-            >
-              Connexion
-            </Link>
-            <Link
-              href={route('register')}
-              className="inline-block bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md"
-            >
-              Essai gratuit
-            </Link>
+            {isLoggedIn ? (
+              <Link
+                href={route('dashboard')}
+                className="inline-block bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md"
+              >
+                Tableau de bord
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href={route('login')}
+                  className="text-gray-700 hover:text-green-700 font-medium transition-colors"
+                >
+                  Connexion
+                </Link>
+                <Link
+                  href={route('register')}
+                  className="inline-block bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-green-700 transition-colors shadow-md"
+                >
+                  Essai gratuit
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </header>
@@ -77,12 +91,21 @@ export default function Welcome() {
               Prédictions de rendement, détection des maladies et conseils agronomiques personnalisés pour faire prospérer votre exploitation.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                href={route('register')}
-                className="bg-green-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
-              >
-                Commencer gratuitement
-              </Link>
+              {isLoggedIn ? (
+                <Link
+                  href={route('dashboard')}
+                  className="bg-green-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
+                >
+                  Accéder au tableau de bord
+                </Link>
+              ) : (
+                <Link
+                  href={route('register')}
+                  className="bg-green-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
+                >
+                  Commencer gratuitement
+                </Link>
+              )}
               <a
                 href="#features"
                 className="inline-flex items-center border border-green-600 text-green-700 px-8 py-3.5 rounded-xl font-semibold hover:bg-green-50 transition-colors"
@@ -173,10 +196,10 @@ export default function Welcome() {
             Rejoignez les agriculteurs qui optimisent déjà leurs rendements grâce à l’intelligence artificielle.
           </p>
           <Link
-            href={route('register')}
+            href={isLoggedIn ? route('dashboard') : route('register')}
             className="inline-block bg-white text-green-700 px-10 py-4 rounded-xl font-bold hover:bg-green-50 transition-colors shadow-2xl"
           >
-            Démarrer gratuitement
+            {isLoggedIn ? 'Accéder au tableau de bord' : 'Démarrer gratuitement'}
           </Link>
         </div>
       </section>

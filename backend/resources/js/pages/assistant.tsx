@@ -42,7 +42,7 @@ export default function ChatAssistant() {
     };
 
     return (
-        <>
+        <AppLayout>
             <Head title="Assistant IA" />
             <div className="flex h-[calc(100vh-4rem)] gap-4 p-4">
                 {/* Sidebar */}
@@ -136,6 +136,6 @@ export default function ChatAssistant() {
                     )}
                 </Card>
             </div>
-        </>
+        </AppLayout>
     );
 }

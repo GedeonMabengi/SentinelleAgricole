@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Head, Link, usePage } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
 import {
     Activity,
     ArrowRight,
@@ -175,9 +176,9 @@ export default function Dashboard() {
         .slice(0, 6);
 
     return (
-        <>
+        <AppLayout>
             <Head title="Tableau de bord" />
-            <div className="flex flex-col gap-6 p-6">
+            <div className="flex flex-col gap-6">
                 {/* Header */}
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                     <div>
@@ -399,6 +400,6 @@ export default function Dashboard() {
                     </Card>
                 </div>
             </div>
-        </>
+        </AppLayout>
     );
 }

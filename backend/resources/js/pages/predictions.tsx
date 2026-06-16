@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
 import { Sprout, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -61,9 +62,9 @@ export default function Predictions() {
     };
 
     return (
-        <>
+        <AppLayout>
             <Head title="Prédictions" />
-            <div className="flex flex-col gap-6 p-6">
+            <div className="flex flex-col gap-6">
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight">Prédiction des récoltes</h1>
                     <p className="text-muted-foreground">Estimez le rendement de vos cultures</p>
@@ -190,6 +191,6 @@ export default function Predictions() {
                     </CardContent>
                 </Card>
             </div>
-        </>
+        </AppLayout>
     );
 }

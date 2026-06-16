@@ -1,6 +1,71 @@
 import { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { type BreadcrumbItem } from '@/types';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useInitials } from '@/hooks/use-initials';
+import { LogOut, Settings, User } from 'lucide-react';
+
+function ProfileDropdown() {
+    const { auth } = usePage().props;
+    const getInitials = useInitials();
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <button className="flex items-center space-x-3 rounded-full px-2 py-1 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    <span className="text-sm font-medium text-gray-700 hidden sm:block">{auth.user?.name}</span>
+                    <Avatar className="h-9 w-9 border-2 border-green-100">
+                        <AvatarImage src={auth.user?.avatar} alt={auth.user?.name} />
+                        <AvatarFallback className="bg-green-600 text-white text-sm font-bold">
+                            {getInitials(auth.user?.name || '')}
+                        </AvatarFallback>
+                    </Avatar>
+                </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end">
+                <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium">{auth.user?.name}</p>
+                        <p className="text-xs text-gray-500">{auth.user?.email}</p>
+                    </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link href={route('profile.edit')} className="cursor-pointer">
+                        <User className="mr-2 h-4 w-4" />
+                        Mon profil
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                    <Link href={route('profile.edit')} className="cursor-pointer">
+                        <Settings className="mr-2 h-4 w-4" />
+                        Paramètres
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link
+                        method="post"
+                        href={route('logout')}
+                        as="button"
+                        className="cursor-pointer w-full text-left text-red-600 focus:text-red-600"
+                    >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Déconnexion
+                    </Link>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
 
 const navigation = [
     { name: 'Tableau de bord', href: route('dashboard'), icon: '📊' },
@@ -77,17 +142,7 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: { child
                         </div>
 
                         <div className="flex items-center space-x-4">
-                            <span className="text-sm font-medium text-gray-700 hidden sm:block">
-                                {auth.user?.name}
-                            </span>
-                            <Link
-                                href={route('logout')}
-                                method="post"
-                                as="button"
-                                className="text-sm text-gray-500 hover:text-red-600 transition-colors font-medium"
-                            >
-                                Déconnexion
-                            </Link>
+                            <ProfileDropdown />
                         </div>
                     </div>
                 </header>

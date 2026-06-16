@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
 import { MapPin, Plus, Trash2 } from 'lucide-react';
 
 interface Plot {
@@ -45,7 +46,7 @@ export default function Plots() {
     };
 
     return (
-        <>
+        <AppLayout>
             <Head title="Parcelles" />
             <div className="flex flex-col gap-6 p-6">
                 <div className="flex items-center justify-between">
@@ -118,7 +119,7 @@ export default function Plots() {
                     ))}
                 </div>
             </div>
-        </>
+        </AppLayout>
     );
 }
 

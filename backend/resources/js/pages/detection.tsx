@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
 import { Upload, Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useState, useCallback } from 'react';
 
@@ -54,7 +55,7 @@ export default function DiseaseDetection() {
     };
 
     return (
-        <>
+        <AppLayout>
             <Head title="Détection maladies" />
             <div className="flex flex-col gap-6 p-6">
                 <div>
@@ -129,6 +130,6 @@ export default function DiseaseDetection() {
                     </CardContent>
                 </Card>
             </div>
-        </>
+        </AppLayout>
     );
 }
